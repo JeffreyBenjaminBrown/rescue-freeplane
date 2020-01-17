@@ -1,0 +1,2 @@
+* following this tutorial
+https://www.vex.net/~trebla/haskell/hxt-arrow/lesson-1.xhtml

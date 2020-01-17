@@ -1,0 +1,5 @@
+:set prompt "> "
+
+-- import Data.Yaml
+import Text.XML.HXT.Core
+

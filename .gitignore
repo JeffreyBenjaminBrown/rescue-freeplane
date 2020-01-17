@@ -1,0 +1,6 @@
+git-comment
+.stack-work/
+rescue-freeplane.cabal
+*.lock
+*~
+_hiding
