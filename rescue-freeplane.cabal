@@ -1,0 +1,37 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.32.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: fd097290f0d5503c5dfd1f3bf582c42306f57675894a4a14e02916e65b633576
+
+name:           rescue-freeplane
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/JeffreyBenjaminBrown/rescue-freeplane#readme>
+homepage:       https://github.com/JeffreyBenjaminBrown/rescue-freeplane#readme
+bug-reports:    https://github.com/JeffreyBenjaminBrown/rescue-freeplane/issues
+author:         Jeffrey Benjamin Brown
+maintainer:     jeffbrown.the@gmail.com
+copyright:      GPL-3
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+
+source-repository head
+  type: git
+  location: https://github.com/JeffreyBenjaminBrown/rescue-freeplane
+
+library
+  exposed-modules:
+      Lib
+  other-modules:
+      Paths_rescue_freeplane
+  hs-source-dirs:
+      src
+  build-depends:
+      base
+    , hxt
+  default-language: Haskell2010
