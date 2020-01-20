@@ -26,8 +26,9 @@ source-repository head
 
 library
   exposed-modules:
-      Lesson_0
-    , Lesson_1
+                  L0
+                , L1
+                , L2
   other-modules:
       Paths_rescue_freeplane
   hs-source-dirs:

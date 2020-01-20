@@ -3,4 +3,4 @@ git-comment
 .stack-work/
 *.lock
 *~
-_hiding
+.hiding

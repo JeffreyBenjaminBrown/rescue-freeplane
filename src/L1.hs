@@ -1,10 +1,10 @@
-module Lesson_1 where
+module L1 where
 
 import Text.XML.HXT.Core
 
 
-myRead :: FilePath -> IO [XmlTree]
-myRead arg = runX (processor arg)
+play :: FilePath -> IO [XmlTree]
+play = runX . processor
 
 processor :: FilePath -> IOSArrow XmlTree XmlTree
 processor filename =
