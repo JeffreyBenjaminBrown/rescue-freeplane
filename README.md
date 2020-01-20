@@ -1,6 +1,6 @@
 # How to use it
 
-d <- myRead "file.mm"`
+d <- myRead "mangle.mm"
 
 # Why
 
