@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet href="../coding-tutorial.css" type="text/css"?>
+<!-- The DTD is commented out for the early lessons.
+     Thus strictly speaking this file is not XHTML yet. Just general XML.
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+  "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+-->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+  <meta http-equiv="Content-Language" content="en"/>
+  <title>Hello World</title>
+</head>
+<body>
+
+<h1>Hello World</h1>
+<address>
+Albert Y. C. Lai
+</address>
+
+<p>Save this in a file named "hello1.hs".</p>
+
+<pre>main = putStrLn "hello world"
+</pre>
+
+<p>To run it, enter this at a shell prompt:</p>
+
+<pre>$ runghc hello1.hs
+</pre>
+
+<p>Or, enter this at a GHCi prompt:</p>
+
+<pre>Prelude&gt; :load hello1.hs
+*Main&gt; main
+</pre>
+
+<p>Just for the kick, here is another version, "hello2.hs"</p>
+
+<pre><![CDATA[main = interact (const "hello world\n")
+]]></pre>
+
+</body>
+</html>

@@ -1,6 +1,6 @@
 # How to use it
 
-d <- myRead "mangle.mm"
+d <- myRead "data/enph.mm"
 
 # Why
 
