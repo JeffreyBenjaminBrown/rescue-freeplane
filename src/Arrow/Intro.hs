@@ -1,5 +1,7 @@
 -- based on the Hackage docs for the imported libraries
 
+{-# OPTIONS_GHC -fno-warn-type-defaults #-}
+
 module Arrow.Intro where
 
 import Control.Category hiding ((.), id)

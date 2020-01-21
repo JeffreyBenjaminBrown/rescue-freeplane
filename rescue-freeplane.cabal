@@ -26,11 +26,12 @@ source-repository head
 
 library
   exposed-modules:
+                  -- Arrow.Intro
+                  Arrow.ArrowList
 --      Lessons.L0
 --    , Lessons.L1
 --    , Lessons.L2
-      Lessons.L3
-    , Arrow.Intro
+--    , Lessons.L3
   other-modules:
       Paths_rescue_freeplane
   hs-source-dirs:

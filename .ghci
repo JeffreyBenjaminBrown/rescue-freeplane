@@ -1,8 +1,12 @@
 :set prompt "> "
 
--- import Data.Yaml
-:m -Prelude
-import Control.Arrow
+import Control.Lens hiding (none)
+
+-- later modules build on earlier ones
 import Control.Category hiding ((.), id)
-import Control.Lens
+import Control.Arrow
+import Control.Arrow.ArrowList
+import Control.Arrow.ListArrow
+import Control.Arrow.ArrowIf
+import Control.Arrow.ArrowTree
 import Text.XML.HXT.Core

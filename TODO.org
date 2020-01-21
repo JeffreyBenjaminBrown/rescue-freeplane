@@ -4,6 +4,8 @@ https://www.vex.net/~trebla/haskell/hxt-arrow/lesson-1.xhtml
 ** DONE Control.Category
 ** DONE Control.Arrow
 ** TODO Control.Arrow.ArrowList
+The only instance I'm testing is in
+Control.Arrow.ListArrow
 ** Control.Arrow.ArrowIf
 ** Control.Arrow.ArrowTree
 ** Text.XML.HXT.Arrow.XmlArrow
