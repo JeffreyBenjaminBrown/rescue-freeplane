@@ -37,4 +37,5 @@ library
   build-depends:
       base
     , hxt
+    , lens
   default-language: Haskell2010

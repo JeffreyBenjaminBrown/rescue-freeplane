@@ -24,6 +24,10 @@ processor =
 
 getTuple :: IOSArrow XmlTree (String,String)
 getTuple =
-    getAttrl >>>
-    getName &&& (getChildren >>> getText) >>>
-    arr (map toUpper) *** returnA
+    getAttrl -- each attribute (key-value association)
+    >>> ( getName                     -- get the attr name
+          &&&
+          (getChildren >>> getText) ) -- get the attr value
+    >>> ( arr (map toUpper)           -- change the name to upper-case
+          ***
+          returnA )                   -- don't change the value
