@@ -42,8 +42,20 @@ demo_arrL = let
 
 -- obvious:
 -- arr2L :: (b -> c -> [d]) -> a (b, c) d
--- constA :: c -> a b c
--- constL :: [c] -> a b c
+
+-- | `constA :: c   -> a b c`
+--   `constL :: [c] -> a b c`
+-- These are natural entry points for the `LA` type.
+demo_constA :: Bool
+demo_constA = let
+  f :: LA () Int
+  f = constA 0 >>> arrL (\x -> [x+1,x+2])
+  in runLA f () == [1,2]
+demo_constL :: Bool
+demo_constL = let
+  f :: LA () Int
+  f = constL [1,6,11] >>> isA (>5)
+  in runLA f () == [6,11]
 
 -- | `(>>.) :: a b c -> ([c] -> [d]) -> a b d`
 -- I would call this "transform the list into another list".
