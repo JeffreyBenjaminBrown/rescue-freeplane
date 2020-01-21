@@ -1,5 +1,8 @@
 :set prompt "> "
 
 -- import Data.Yaml
-import Text.XML.HXT.Core
+:m -Prelude
+import Control.Arrow
+import Control.Category hiding ((.), id)
 import Control.Lens
+import Text.XML.HXT.Core

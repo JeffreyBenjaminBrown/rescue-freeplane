@@ -29,7 +29,8 @@ library
 --      Lessons.L0
 --    , Lessons.L1
 --    , Lessons.L2
-    Lessons.L3
+      Lessons.L3
+    , Arrow.Intro
   other-modules:
       Paths_rescue_freeplane
   hs-source-dirs:
