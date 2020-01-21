@@ -1,5 +1,22 @@
 * following this tutorial
 https://www.vex.net/~trebla/haskell/hxt-arrow/lesson-1.xhtml
-** PITFALL: read mangles the data a little by default
+* TODO see also
+Control.Arrow.ArrowTree
+Text.XML.HXT.Arrow.XmlArrow
+* PITFALL: read mangles the data a little by default
 Character references, entity references, and CDATA nodes are converted and merged into text nodes. Comments and the DTD are discarded. These features can be turned off by certain options of readDocument or in some cases by calling some other read/parse functions instead.
-
+* about the data format
+** navigate the tree
+with getChildren and filters
+** "elements"
+are things between <>, e.g. "<head>" is an element.
+Filter for them with "isElem".
+** the "name" of an element
+In the tutorial sample data,
+it's whatever comes between the <> symbols,
+but they are always single words.
+I suspect the name is only the first of those words.
+Filter for it with "hasName".
+** "text"
+is outside of angle brackets.
+It matters in the .mm data because of the "richcontent" elements.
