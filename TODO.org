@@ -9,6 +9,29 @@ resume at listA
 ** Control.Arrow.ArrowIf
 ** Control.Arrow.ArrowTree
 ** Text.XML.HXT.Arrow.XmlArrow
+* TODO convert .mm to .org
+** likely functions
+*** Control.Arrow.ArrowList
+isA
+*** Control.Arrow.ArrowIf.*
+*** Control.Arrow.ArrowTree
+processBottomUp
+** goals
+*** apply condition
+first try using ArrowTree.deepest and isA
+***             delete if condition holds
+*** recursively delete if condition holds
+*** replace something with its children
+*** replace an XTag with an XText
+** recipe
+*** step 1: strip
+ Delete each XTag "head".
+ Delete each XText that contains nothing but whitespace (including "\n").
+ Replace each Xtag "html|body|p" with its children.
+ For each XTag "node",
+   strip all of its tags except its TEXT value,
+   and keep its children in place.
+*** step 2 (???) : from .xml to .mm
 * PITFALL: read (in Hxt) mangles the data a little by default
 Character references, entity references, and CDATA nodes are converted and merged into text nodes. Comments and the DTD are discarded. These features can be turned off by certain options of readDocument or in some cases by calling some other read/parse functions instead.
 * about the data format

@@ -29,7 +29,8 @@ library
                   -- Arrow.Intro
                   Arrow.ArrowList
 --      Lessons.L0
---    , Lessons.L1
+                , Lessons.L1
+                , Mine
 --    , Lessons.L2
 --    , Lessons.L3
   other-modules:
