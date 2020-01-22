@@ -1,0 +1,9 @@
+<!-- For testing:
+Delete iff a condition holds.
+-->
+<a>
+  <b>1</b>
+  <c>2</c>
+  <b>3</b>
+  <c>4</c>
+</a>

@@ -17,9 +17,11 @@ isA
 *** Control.Arrow.ArrowTree
 processBottomUp
 ** goals
-*** apply condition
-first try using ArrowTree.deepest and isA
-***             delete if condition holds
+*** DONE apply condition
+Mine.getDeepest_xTags
+Mine.getHighest_xTags
+*** DONE        delete if condition holds
+Mine.deleteIf
 *** recursively delete if condition holds
 *** replace something with its children
 *** replace an XTag with an XText

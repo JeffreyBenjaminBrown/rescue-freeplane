@@ -9,17 +9,26 @@ import Control.Arrow.ArrowTree
 import Text.XML.HXT.Core
 
 
--- To run any `arrow` below, use e.g.
--- runX $ r "data/test/x.xml" >>> arrow
+go :: FilePath -> IOSLA (XIOState ()) XmlTree c -> IO [c]
+go file func =
+  runX $
+  readDocument [withValidate no] file >>>
+  func
 
-r :: FilePath -> IOStateArrow s b XmlTree
-r filename = readDocument [withValidate no] filename
+-- go "data/test/flat.xml" deleteIf
+deleteIf :: IOSArrow XmlTree XmlTree
+deleteIf =
+  getChildren >>> getChildren
+  >>> ifA (isElem >>> hasName "b") none returnA
+  >>> putXmlTree "-"
 
+-- go "data/test/scattered-across-levels.xml" getDeepest_xTags
 getDeepest_xTags :: IOSArrow XmlTree XmlTree
 getDeepest_xTags =
   deepest (isElem >>> hasName "x")
   >>> putXmlTree "-"
 
+-- go "data/test/scattered-across-levels.xml" getHighest_xTags
 getHighest_xTags :: IOSArrow XmlTree XmlTree
 getHighest_xTags =
   deep (isElem >>> hasName "x")
