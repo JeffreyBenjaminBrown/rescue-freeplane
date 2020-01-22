@@ -10,6 +10,7 @@ import Control.Arrow.ArrowIf
 import Control.Arrow.ArrowTree
 
 import Text.XML.HXT.Core
+import Data.Tree.NTree.TypeDefs
 
 
 go :: FilePath -> IOSLA (XIOState ()) XmlTree c -> IO [c]
@@ -17,6 +18,28 @@ go file func =
   runX $
   readDocument [withValidate no] file >>>
   func
+
+-- | TODO ? This would be easier, but do notation is unavailable.
+-- do
+--   t <- getText
+--   eelem "node" >>> addAttr "TEXT" t
+-- to execute, use test_textToNode, below
+textToNode :: IOSArrow XmlTree XmlTree
+textToNode = arr f where
+  f :: XmlTree -> XmlTree
+  f (NTree (XText s) children) =
+    let attrs = [ NTree
+                  (XAttr $ mkName "TEXT")
+                  [NTree (XText s) []]
+                , NTree (XAttr $ mkName "leaf") [] ]
+    in NTree (XTag (mkName "node") attrs) children
+  f x = x
+
+test_textToNode :: IO [XmlTree]
+test_textToNode =
+  go "data/test/tiny-flat.xml"
+  $ deepest (ifA isText textToNode none)
+  >>> putXmlTree "-"
 
 -- go "data/test/scattered-across-levels.xml" replaceWithChildren_ifX
 replaceWithChildren_ifX :: IOSArrow XmlTree XmlTree
