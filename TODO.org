@@ -62,6 +62,21 @@ Mine.getTextAttrs
 Use an arrow with an Int arg that has effects.
 It calls itself, augmenting the Int arg, on children.
 ** recipe
+*** consider all tags
+found via Research.allTags
+**** node (print)
+**** p (print)
+**** SOMEDAY ? arrowlink
+**** SOMEDAY ? font
+**** map (descend)
+**** body (descend)
+**** html (descend)
+**** richcontent (descend)
+**** / (skip)
+**** edge (skip)
+**** head (skip)
+**** hook (skip)
+**** properties (skip)
 *** step 1: strip
  Delete each XTag "head".
  Delete each XText that contains nothing but whitespace (including "\n").

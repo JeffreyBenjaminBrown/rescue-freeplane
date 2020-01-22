@@ -1,6 +1,7 @@
 module Research where
 
 import Data.Text (strip, pack, unpack)
+import qualified Data.Set as S
 
 import Control.Category hiding ((.), id)
 import Control.Arrow
@@ -17,6 +18,13 @@ go file func =
   runX $
   readDocument [withValidate no] file >>>
   func
+
+uniq :: Ord a => [a] -> [a]
+uniq = S.toList . S.fromList
+
+-- uniq <$> go "data/test/big.mm" allTags
+allTags :: IOSArrow XmlTree String
+allTags = multi getName
 
 -- | TODO ? I thought I'd print leaves differently from non-leaf subtrees --
 -- including leading asterisks except for leaves.
