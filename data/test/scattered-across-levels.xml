@@ -1,13 +1,16 @@
 <!-- For testing:
 The retrieval of each <x> subtree.
+The replacement of each <x> subtree with its children.
 -->
 <a>
   <b>Not important.</b>
-  <x>1 - If processing top-down, I would like to retrieve this.
-    <x>2 - Whether processing bottom-up or top-down,I would like to retrieve this.</x>
+  <x>1
+    <b>
+      <x>2</x>
+    </b>
   </x>
   <b>Not important.</b>
   <b>Not important.
-    <x>3 - I would like to retrieve this whether processing bottom-up or top-down.</x>
+    <x>3</x>
   </b>  
 </a>
