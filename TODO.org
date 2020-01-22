@@ -10,13 +10,7 @@ resume at listA
 ** Control.Arrow.ArrowTree
 ** Text.XML.HXT.Arrow.XmlArrow
 * TODO convert .mm to .org
-** likely functions
-*** Control.Arrow.ArrowList
-isA
-*** Control.Arrow.ArrowIf.*
-*** Control.Arrow.ArrowTree
-processBottomUp
-** goals
+** component routines
 *** DONE apply condition
 Mine.getDeepest_xTags
 Mine.getHighest_xTags
@@ -24,8 +18,13 @@ Mine.getHighest_xTags
 Mine.deleteIf
 *** DONE delete if condition holds, preserving tree structure
 Mine.deleteIf_blank_bottomUp
-*** replace something with its children
-*** replace an XTag with an XText
+*** DONE replace something with its children
+Mine.replaceWithChildren_ifX
+*** print org-style
+Use an arrow with an Int arg that has effects.
+It calls itself, augmenting the Int arg, on children.
+It calls two slightly different functions, one on XTexts,
+the other on XTags (which should have a TEXT field).
 ** recipe
 *** step 1: strip
  Delete each XTag "head".

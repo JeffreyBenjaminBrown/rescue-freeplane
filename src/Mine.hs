@@ -18,8 +18,11 @@ go file func =
   readDocument [withValidate no] file >>>
   func
 
-strip' :: String -> String
-strip' = unpack . strip . pack
+-- go "data/test/scattered-across-levels.xml" replaceWithChildren_ifX
+replaceWithChildren_ifX :: IOSArrow XmlTree XmlTree
+replaceWithChildren_ifX =
+  processTopDown (ifA (isElem >>> hasName "x") getChildren returnA)
+  >>> putXmlTree "-"
 
 -- go "data/test/flat.xml" delete_ifBlank_bottomUp
 delete_ifBlank_bottomUp :: IOSArrow XmlTree XmlTree
@@ -47,3 +50,6 @@ getHighest_xTags :: IOSArrow XmlTree XmlTree
 getHighest_xTags =
   deep (isElem >>> hasName "x")
   >>> putXmlTree "-"
+
+strip' :: String -> String
+strip' = unpack . strip . pack
