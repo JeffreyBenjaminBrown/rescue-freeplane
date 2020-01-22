@@ -1,6 +1,7 @@
 :set prompt "> "
 
 import Control.Lens hiding (none)
+import Data.Text hiding (null)
 
 -- later modules build on earlier ones
 import Control.Category hiding ((.), id)
