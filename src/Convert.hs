@@ -12,16 +12,28 @@ import Text.XML.HXT.Core
 import Data.Tree.NTree.TypeDefs
 
 
+new =
+  go "data/test/big.mm" $
+  delete_skippable >>>
+  promoteChildren >>>
+  putXmlTree "-"
+
+old =
+  go "data/test/big.mm" $
+  delete_skippable >>>
+  putXmlTree "-"
+
 go :: FilePath -> IOSLA (XIOState ()) XmlTree c -> IO [c]
 go file func =
   runX $
   readDocument [withValidate no] file >>>
   func
 
-together =
-  go "data/test/big.mm" $
-  delete_skippable >>>
-  putXmlTree "-"
+promoteChildren :: IOSArrow XmlTree XmlTree
+promoteChildren = let
+  tagsToVanish = ["map","body","html","richcontent","p"]
+  in processBottomUp $
+  ifA (foldr1 (<+>) $ map hasName tagsToVanish) getChildren returnA
 
 delete_skippable :: IOSArrow XmlTree XmlTree
 delete_skippable = let
