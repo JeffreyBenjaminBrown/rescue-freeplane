@@ -5,7 +5,6 @@
 module Arrow.ArrowList where
 
 import Control.Category hiding ((.), id)
-import Control.Arrow
 import Control.Arrow.ArrowList
 import Control.Arrow.ListArrow
   -- defines newtype LA = LA {runLA :: a -> [b]}

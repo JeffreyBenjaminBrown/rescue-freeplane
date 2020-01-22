@@ -1,11 +1,10 @@
 module Mine where
 
-import Data.Text hiding (null)
+import Data.Text (strip, pack, unpack)
 
 import Control.Category hiding ((.), id)
 import Control.Arrow
 import Control.Arrow.ArrowList
-import Control.Arrow.ListArrow
 import Control.Arrow.ArrowIf
 import Control.Arrow.ArrowTree
 
@@ -19,6 +18,25 @@ go file func =
   readDocument [withValidate no] file >>>
   func
 
+-- | TODO ? I thought I'd print leaves differently from non-leaf subtrees --
+-- including leading asterisks except for leaves.
+-- But then I realized that a leaf and a subtree could be neighbors.
+-- If the leaf came second, it would be swallowed by the subtree.
+-- go "t.xml" $ printOrg 0
+printOrg :: Int -> IOSArrow XmlTree XmlTree
+printOrg i0 = let
+  printElem :: Int -> IOSArrow XmlTree XmlTree
+  printElem i =
+    ifA (hasName "leaf") -- the other alternative is "node"
+    ( perform $ getAttrValue "TEXT" >>> arrIO putStrLn)
+    ( perform $ getAttrValue "TEXT" >>> arrIO
+      (\s -> putStrLn $ (replicate i '*') ++ " " ++ s) )
+  printIfApplicable :: Int -> IOSArrow XmlTree XmlTree
+  printIfApplicable i = ifA isElem (printElem i) returnA
+  in printIfApplicable i0 >>> getChildren >>>
+     printOrg (i0 + 1)
+
+-- | Print every node, top-down, depth-first.
 -- go "data/test/leaves-have-tags.xml" printEverything
 printEverything :: IOSArrow XmlTree XmlTree
 printEverything =

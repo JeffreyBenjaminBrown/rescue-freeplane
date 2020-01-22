@@ -43,25 +43,24 @@ setElemName :: QName -> a XmlTree XmlTree
 setAttrl :: a XmlTree XmlTree -> a XmlTree XmlTree
 addAttrl :: a XmlTree XmlTree -> a XmlTree XmlTree
 ** component routines
-*** DONE apply condition
+*** apply condition
 Mine.getDeepest_xTags
 Mine.getHighest_xTags
-*** DONE delete if condition holds
+*** delete if condition holds
 Mine.deleteIf
-*** DONE delete if condition holds, preserving tree structure
+*** delete if condition holds, preserving tree structure
 Mine.deleteIf_blank_bottomUp
-*** DONE replace something with its children
+*** replace something with its children
 Mine.replaceWithChildren_ifX
-*** DONE transform XText (leaf) to XTag (tree)
+*** transform XText (leaf) to XTag (tree)
 Mine.textToNode
-*** DONE tag all leaves
+*** tag all leaves
 Mine.tagLeaves
-*** DONE get an attribute
+*** get an attribute
 Mine.getTextAttrs
 *** print org-style
 Use an arrow with an Int arg that has effects.
 It calls itself, augmenting the Int arg, on children.
-Called on a leaf, it prints no asterisks; otherwise it does.
 ** recipe
 *** step 1: strip
  Delete each XTag "head".
