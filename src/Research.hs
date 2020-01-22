@@ -1,4 +1,4 @@
-module Mine where
+module Research where
 
 import Data.Text (strip, pack, unpack)
 
@@ -22,7 +22,7 @@ go file func =
 -- including leading asterisks except for leaves.
 -- But then I realized that a leaf and a subtree could be neighbors.
 -- If the leaf came second, it would be swallowed by the subtree.
--- go "t.xml" $ printOrg 0
+-- go "data/test/node-and-leaf.mm" $ printOrg 0
 printOrg :: Int -> IOSArrow XmlTree XmlTree
 printOrg i0 = let
   printElem :: Int -> IOSArrow XmlTree XmlTree

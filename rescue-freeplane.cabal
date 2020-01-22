@@ -30,7 +30,7 @@ library
                   Arrow.ArrowList
 --      Hxt_Arrow_Tutorial.L0
                 , Hxt_Arrow_Tutorial.L1
-                , Mine
+                , Research
 --    , Hxt_Arrow_Tutorial.L2
 --    , Hxt_Arrow_Tutorial.L3
   other-modules:
