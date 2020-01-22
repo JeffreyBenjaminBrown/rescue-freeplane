@@ -11,9 +11,13 @@ resume at listA
 ** Text.XML.HXT.Arrow.XmlArrow
 * TODO convert .mm to .org
 ** some Xml-specific functions
+https://hackage.haskell.org/package/hxt-9.3.1.18/docs/Text-XML-HXT-Arrow-XmlArrow.html
+
 eelem :: String -> a n XmlTree
 addAttr :: String -> String -> a XmlTree XmlTree
 mkName :: String -> QName
+
+getAttrValue :: String -> a XmlTree String
 
 (+=) :: a b XmlTree -> a b XmlTree -> a b XmlTree
   adds children
@@ -49,18 +53,15 @@ Mine.deleteIf_blank_bottomUp
 *** DONE replace something with its children
 Mine.replaceWithChildren_ifX
 *** DONE transform XText (leaf) to XTag (tree)
-so that I can add the leaf tag
-*** tag all leaves
-**** how
-I could do this by adding a tag (with an empty value), but that seems silly.
-I could instead change the existing tag, from "node" to "leaf".
-**** why
-so that when printing I can omit the leading *s from them
+Mine.textToNode
+*** DONE tag all leaves
+Mine.tagLeaves
+*** DONE get an attribute
+Mine.getTextAttrs
 *** print org-style
 Use an arrow with an Int arg that has effects.
 It calls itself, augmenting the Int arg, on children.
-It calls two slightly different functions, one on XTexts,
-the other on XTags (which should have a TEXT field).
+Called on a leaf, it prints no asterisks; otherwise it does.
 ** recipe
 *** step 1: strip
  Delete each XTag "head".

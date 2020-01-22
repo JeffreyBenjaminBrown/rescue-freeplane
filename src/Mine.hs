@@ -19,6 +19,24 @@ go file func =
   readDocument [withValidate no] file >>>
   func
 
+-- Aping `putXmlDocument` from here:
+-- https://hackage.haskell.org/package/hxt-9.3.1.18/docs/src/Text.XML.HXT.Arrow.DocumentOutput.html#putXmlDocument
+-- myPrint :: IOSArrow XmlTree XmlTree
+-- myPrint = perform $ arrIO (ifA isElem
+
+-- go "data/test/leaves-have-tags.xml" getTextAttrs
+getTextAttrs :: IOSArrow XmlTree String
+getTextAttrs =
+  deepest (isElem >>> getAttrValue "DEPTH")
+
+-- go "data/test/leaves-have-tags.xml" tagLeaves
+tagLeaves :: IOSArrow XmlTree XmlTree
+tagLeaves =
+  delete_ifBlank_bottomUp
+  >>> processTopDown ( ifA (isElem >>> getChildren) returnA
+                       $ changeQName (const $ mkName "leaf") )
+  >>> putXmlTree "-"
+
 -- | TODO ? This would be easier, but do notation is unavailable.
 -- do
 --   t <- getText
