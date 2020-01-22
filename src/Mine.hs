@@ -19,14 +19,14 @@ go file func =
   readDocument [withValidate no] file >>>
   func
 
--- Aping `putXmlDocument` from here:
--- https://hackage.haskell.org/package/hxt-9.3.1.18/docs/src/Text.XML.HXT.Arrow.DocumentOutput.html#putXmlDocument
--- myPrint :: IOSArrow XmlTree XmlTree
--- myPrint = perform $ arrIO (ifA isElem
+-- go "data/test/leaves-have-tags.xml" myPrint
+myPrint :: IOSArrow XmlTree XmlTree
+myPrint = perform $
+  getDepthAttr >>> arrIO putStrLn
 
--- go "data/test/leaves-have-tags.xml" getTextAttrs
-getTextAttrs :: IOSArrow XmlTree String
-getTextAttrs =
+-- go "data/test/leaves-have-tags.xml" getDepthAttr
+getDepthAttr :: IOSArrow XmlTree String
+getDepthAttr =
   deepest (isElem >>> getAttrValue "DEPTH")
 
 -- go "data/test/leaves-have-tags.xml" tagLeaves
