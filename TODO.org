@@ -1,3 +1,7 @@
+* PITFALL: the freeplane format changed over time
+In particular, the set of tags used might be different.
+This code is based on freeplane 1.6.0,
+which might be the newest.
 * TODO references (in order)
 Next skip to ArrowTree.
 ** DONE tutorial

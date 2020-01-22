@@ -104,6 +104,13 @@ delete_ifBlank_bottomUp = let
   in processBottomUp (ifA isToSkip none returnA)
      >>> putXmlTree "-"
 
+-- go "data/test/flat.xml" deleteIf_multiplConditions
+deleteIf_multiplConditions :: IOSArrow XmlTree XmlTree
+deleteIf_multiplConditions =
+  ( processTopDown $
+    ifA (hasName "b" <+> isText) none returnA )
+  >>> putXmlTree "-"
+
 -- go "data/test/flat.xml" deleteIf
 deleteIf :: IOSArrow XmlTree XmlTree
 deleteIf =
