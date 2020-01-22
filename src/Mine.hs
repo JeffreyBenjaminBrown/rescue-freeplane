@@ -19,10 +19,15 @@ go file func =
   readDocument [withValidate no] file >>>
   func
 
--- go "data/test/leaves-have-tags.xml" myPrint
-myPrint :: IOSArrow XmlTree XmlTree
-myPrint = perform $
-  getDepthAttr >>> arrIO putStrLn
+-- go "data/test/leaves-have-tags.xml" printEverything
+printEverything :: IOSArrow XmlTree XmlTree
+printEverything =
+  processTopDown $ perform
+  $ ( ifA (hasAttr "DEPTH") (getAttrValue "DEPTH")
+      -- if it has a depth, show that
+      (ifA isElem getName (arr $ const "blank") ) )
+      -- if it has a name, show that; otherwise, show "blank"
+  >>> arrIO putStrLn
 
 -- go "data/test/leaves-have-tags.xml" getDepthAttr
 getDepthAttr :: IOSArrow XmlTree String
