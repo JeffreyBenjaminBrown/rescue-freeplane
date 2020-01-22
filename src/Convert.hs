@@ -16,11 +16,13 @@ new =
   go "data/test/big.mm" $
   delete_skippable >>>
   promoteChildren >>>
+  textToNode >>>
   putXmlTree "-"
 
 old =
   go "data/test/big.mm" $
   delete_skippable >>>
+  promoteChildren >>>
   putXmlTree "-"
 
 go :: FilePath -> IOSLA (XIOState ()) XmlTree c -> IO [c]
@@ -28,6 +30,18 @@ go file func =
   runX $
   readDocument [withValidate no] file >>>
   func
+
+textToNode :: IOSArrow XmlTree XmlTree
+textToNode = let
+  f :: XmlTree -> XmlTree
+  f (NTree (XText s) children) =
+    let attrs = [ NTree
+                  (XAttr $ mkName "TEXT")
+                  [NTree (XText s) []]
+                , NTree (XAttr $ mkName "leaf") [] ]
+    in NTree (XTag (mkName "node") attrs) children
+  f x = x
+  in processBottomUp $ arr f
 
 promoteChildren :: IOSArrow XmlTree XmlTree
 promoteChildren = let

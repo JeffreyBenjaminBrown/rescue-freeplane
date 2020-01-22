@@ -81,11 +81,7 @@ found via Research.allTags
 **** head (skip)
 **** hook (skip)
 **** properties (skip)
-*** DONE step 1: strip
- Delete each XTag "head".
- Delete each XText that contains nothing but whitespace (including "\n").
-*** Replace some tags with their children.
-*** step 2 (???) : from .xml to .mm
+
 * PITFALL: read (in Hxt) mangles the data a little by default
 Character references, entity references, and CDATA nodes are converted and merged into text nodes. Comments and the DTD are discarded. These features can be turned off by certain options of readDocument or in some cases by calling some other read/parse functions instead.
 * about the data format
