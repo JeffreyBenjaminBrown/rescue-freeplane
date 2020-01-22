@@ -20,15 +20,20 @@ go file func =
 
 together =
   go "data/test/big.mm" $
-  delete_ifBlank_bottomUp >>>
-  nodesOnly >>>
+  delete_skippable >>>
   putXmlTree "-"
 
-nodesOnly :: IOSArrow XmlTree XmlTree
-nodesOnly = getChildren >>> getChildren >>> isElem >>> hasName "node"
-
-delete_ifBlank_bottomUp :: IOSArrow XmlTree XmlTree
-delete_ifBlank_bottomUp = let
-  isToSkip :: IOSArrow XmlTree String
-  isToSkip = isText >>> getText >>> isA (null . unpack . strip . pack)
-  in processBottomUp (ifA isToSkip none returnA)
+delete_skippable :: IOSArrow XmlTree XmlTree
+delete_skippable = let
+  isBlankText :: IOSArrow XmlTree XmlTree
+  isBlankText = isText >>>
+    ifA (getText >>> isA (null . unpack . strip . pack))
+    returnA none
+  isTagToSkip :: IOSArrow XmlTree XmlTree
+  isTagToSkip = isElem >>>
+    ( hasName "edge" <+>
+      hasName "head" <+>
+      hasName "hook" <+>
+      hasName "arrowlink" <+> -- TODO ? someday
+      hasName "font" )        -- TODO ? someday
+  in processBottomUp (ifA (isBlankText <+> isTagToSkip) none returnA)

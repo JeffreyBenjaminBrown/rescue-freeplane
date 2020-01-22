@@ -72,11 +72,11 @@ found via Research.allTags
 **** p (print)
 **** SOMEDAY ? arrowlink
 **** SOMEDAY ? font
+**** / (descend)
 **** map (descend)
 **** body (descend)
 **** html (descend)
 **** richcontent (descend)
-**** / (skip)
 **** edge (skip)
 **** head (skip)
 **** hook (skip)
