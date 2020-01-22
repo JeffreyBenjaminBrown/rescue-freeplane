@@ -1,4 +1,4 @@
-module Lessons.L1 where
+module Hxt_Arrow_Tutorial.L1 where
 
 import Text.XML.HXT.Core
 

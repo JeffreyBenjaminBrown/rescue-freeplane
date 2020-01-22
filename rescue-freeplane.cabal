@@ -28,11 +28,11 @@ library
   exposed-modules:
                   -- Arrow.Intro
                   Arrow.ArrowList
---      Lessons.L0
-                , Lessons.L1
+--      Hxt_Arrow_Tutorial.L0
+                , Hxt_Arrow_Tutorial.L1
                 , Mine
---    , Lessons.L2
---    , Lessons.L3
+--    , Hxt_Arrow_Tutorial.L2
+--    , Hxt_Arrow_Tutorial.L3
   other-modules:
       Paths_rescue_freeplane
   hs-source-dirs:

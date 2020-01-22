@@ -1,6 +1,6 @@
 -- https://www.vex.net/~trebla/haskell/hxt-arrow/lesson-0.xhtml
 
-module Lessons.L0 where
+module Hxt_Arrow_Tutorial.L0 where
 
 import Text.XML.HXT.Core
 

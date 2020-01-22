@@ -1,4 +1,4 @@
-module Lessons.L3 where
+module Hxt_Arrow_Tutorial.L3 where
 
 import Text.XML.HXT.Core
 import Data.Char(toUpper)
