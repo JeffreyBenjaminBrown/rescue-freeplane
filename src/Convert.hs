@@ -1,7 +1,14 @@
 -- | Most (all?) of the utilities here are demonstrated in Research.hs.
+--
+-- Here's what this does to the various XML tags in an .mm file:
+--   print: node
+--   maybe someday: arrowlink, font
+--   promote children: map, body, html, p, richcontent
+--   skip: edge, head, hook, properties
+-- (find all the tags via Research.allTags)
 
-{-# LANGUAGE LambdaCase #-}
-{-# LANGUAGE Arrows #-}
+{-# LANGUAGE LambdaCase,
+Arrows #-}
 
 module Convert where
 
@@ -33,7 +40,7 @@ convert iName oName = do
     processBottomUp delete_skippable >>>
     processTopDown promoteRichContent >>>
       -- PITFALL: promote rich content tags first,
-      -- because `promoteOtherChildren` obliterates them.
+      -- because `promoteOtherChildren` removes them.
     processTopDown promoteOtherChildren >>>
     processBottomUp textToNode >>>
     getChildren >>> -- to skip the "/" node

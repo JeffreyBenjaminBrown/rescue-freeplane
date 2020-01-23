@@ -2,7 +2,6 @@
 In particular, the set of tags used might be different.
 This code is based on freeplane 1.6.0,
 which might be the newest.
-* TODO change org colors
 * references (in order)
 Next skip to ArrowTree.
 ** DONE tutorial
@@ -14,76 +13,6 @@ resume at listA
 ** Control.Arrow.ArrowIf
 ** Control.Arrow.ArrowTree
 ** Text.XML.HXT.Arrow.XmlArrow
-* TODO convert .mm to .org
-** some Xml-specific functions
-https://hackage.haskell.org/package/hxt-9.3.1.18/docs/Text-XML-HXT-Arrow-XmlArrow.html
-
-eelem :: String -> a n XmlTree
-addAttr :: String -> String -> a XmlTree XmlTree
-mkName :: String -> QName
-
-getAttrValue :: String -> a XmlTree String
-
-(+=) :: a b XmlTree -> a b XmlTree -> a b XmlTree
-  adds children
-aelem :: String -> [a n XmlTree] -> a n XmlTree
-  with attributes and no content
-mkElement :: QName -> a n XmlTree -> a n XmlTree -> a n XmlTree
-  I'm guessing the first arrow is attributes, the second children.
-mkqelem :: QName -> [a n XmlTree] -> [a n XmlTree] -> a n XmlTree
-  "more comfortable than mkElement"
-mkAttr :: QName -> a n XmlTree -> a n XmlTree
-  If `mkAttr q f == r`, I believe `r` will apply `f` to its input
-  to create the attribute value, whereas `q` is the attribute name.
-mkelem :: String -> [a n XmlTree] -> [a n XmlTree] -> a n XmlTree
-  Uses strings instead of qualified names as element names.
-
-txt :: String -> a n XmlTree
-
-getElemName :: a XmlTree QName
-getAttrl :: a XmlTree XmlTree
-getAttrName :: a XmlTree QName
-getAttrValue0 :: String -> a XmlTree String
-setElemName :: QName -> a XmlTree XmlTree
-setAttrl :: a XmlTree XmlTree -> a XmlTree XmlTree
-addAttrl :: a XmlTree XmlTree -> a XmlTree XmlTree
-** component routines
-*** apply condition
-Mine.getDeepest_xTags
-Mine.getHighest_xTags
-*** delete if condition holds
-Mine.deleteIf
-*** delete if condition holds, preserving tree structure
-Mine.deleteIf_blank_bottomUp
-*** replace something with its children
-Mine.replaceWithChildren_ifX
-*** transform XText (leaf) to XTag (tree)
-Mine.textToNode
-*** tag all leaves
-Mine.tagLeaves
-*** get an attribute
-Mine.getTextAttrs
-*** print org-style
-Use an arrow with an Int arg that has effects.
-It calls itself, augmenting the Int arg, on children.
-** recipe
-*** consider all tags
-found via Research.allTags
-**** node (print)
-**** SOMEDAY ? arrowlink
-**** SOMEDAY ? font
-**** / (descend)
-**** map (descend)
-**** body (descend)
-**** html (descend)
-**** p (descend)
-**** richcontent (descend)
-**** edge (skip)
-**** head (skip)
-**** hook (skip)
-**** properties (skip)
-
-https://emacs.stackexchange.com/questions/26781/customize-colors-of-level-in-org-mode
 * TODO ? remove unnecessary stars
 ** use arrow notation
 https://stackoverflow.com/questions/59867382/haskell-arrows-on-trees-xml-and-hxt-transform-text-leaves-into-subtrees/59869915#59869915
