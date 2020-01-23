@@ -87,6 +87,10 @@ isRichContentParent = let
                    else [] )
   in ifA f (getAttrValue "A") none
 
+-- Convert an XML arrow (without side effects) to an ordinary function.
+runArrow :: XmlTree -> [XmlTree]
+runArrow = runLA getChildren
+
 -- https://stackoverflow.com/questions/59867382/haskell-arrows-on-trees-xml-and-hxt-transform-text-leaves-into-subtrees/59869915#59869915
 textToNode_arrowNotation :: IOSArrow XmlTree XmlTree
 textToNode_arrowNotation = proc x -> do
