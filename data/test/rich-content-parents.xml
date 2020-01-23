@@ -1,0 +1,15 @@
+<doc>
+  <node A="1">
+    <richcontent/>
+  </node>
+  <node A="2">
+    <node> <!-- `getAttrValue "A"` returns "" here -->
+      <richcontent/>
+    </node>
+    <node/>
+    <node A="4"/>
+  </node>
+  <node A="3">
+    <richcontent/>
+  </node>
+</doc>

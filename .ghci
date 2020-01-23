@@ -1,6 +1,6 @@
 :set prompt "> "
 
-import Control.Lens hiding (none)
+--import Control.Lens hiding (none, deep)
 import Data.Text (strip, pack, unpack)
 
 -- later modules build on earlier ones

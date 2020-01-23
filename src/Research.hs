@@ -68,6 +68,23 @@ tagLeaves =
                        $ changeQName (const $ mkName "leaf") )
   >>> putXmlTree "-"
 
+-- go "data/test/rich-content-parents.xml" $ deep promoteRichContent
+promoteRichContent :: IOSArrow XmlTree XmlTree
+promoteRichContent =
+  processTopDown (ifA isRichContentParent getChildren returnA)
+  >>> putXmlTree "-"
+
+-- go "data/test/rich-content-parents.xml" $ deep isRichContentParent
+isRichContentParent :: IOSArrow XmlTree String
+isRichContentParent = let
+  f = ( hasName "node" &&&
+        (getChildren >>> hasName "richcontent") )
+      >>> arrL ( \(h,r) ->
+                   if not (null h) && not (null r)
+                   then [True]
+                   else [] )
+  in ifA f (getAttrValue "A") none
+
 -- | TODO ? This would be easier, but do notation is unavailable.
 -- do
 --   t <- getText
