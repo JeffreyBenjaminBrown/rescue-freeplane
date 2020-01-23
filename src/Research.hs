@@ -1,7 +1,8 @@
 -- | PITFALL: Many of these could be LA instead of IOSArrow.
 -- Use `fromLA` (see Convert.hs) to lift an LA to an IOSArrow.
 
-{-# LANGUAGE Arrows #-}
+{-# LANGUAGE Arrows,
+LambdaCase #-}
 
 module Research where
 
@@ -68,7 +69,7 @@ getDepthAttr =
 -- go "data/test/leaves-have-tags.xml" tagLeaves
 tagLeaves :: IOSArrow XmlTree XmlTree
 tagLeaves =
-  delete_ifBlank_bottomUp
+  fromLA delete_ifBlank_bottomUp
   >>> processTopDown ( ifA (isElem >>> getChildren) returnA
                        $ changeQName (const $ mkName "leaf") )
   >>> putXmlTree "-"
@@ -89,6 +90,18 @@ isRichContentParent = let
                    then [True]
                    else [] )
   in ifA f (getAttrValue "A") none
+
+-- go "data/test/relabel-children-of-x.xml" $ fromLA relabel_childrenOfX >>> putXmlTree "-"
+relabel_childrenOfX :: LA XmlTree XmlTree
+relabel_childrenOfX = let
+  cn :: LA XmlTree XmlTree
+  cn = changeQName $ const $ mkName "y"
+  cnMap :: [XmlTree] -> [XmlTree]
+  cnMap = map (head . runLA cn)
+  in processTopDown ( ifA (isElem >>> hasName "x")
+                      (changeChildren cnMap)
+                      returnA )
+     >>> delete_ifBlank_bottomUp -- for readability
 
 -- Convert an XML arrow (without side effects) to an ordinary function.
 runArrow :: XmlTree -> [XmlTree]
@@ -125,13 +138,12 @@ replaceWithChildren_ifX =
   processTopDown (ifA (isElem >>> hasName "x") getChildren returnA)
   >>> putXmlTree "-"
 
--- go "data/test/flat.xml" delete_ifBlank_bottomUp
-delete_ifBlank_bottomUp :: IOSArrow XmlTree XmlTree
+-- go "data/test/flat.xml" $ delete_ifBlank_bottomUp >>> putXmlTree "-"
+delete_ifBlank_bottomUp :: LA XmlTree XmlTree
 delete_ifBlank_bottomUp = let
-  isToSkip :: IOSArrow XmlTree String
+  isToSkip :: LA XmlTree String
   isToSkip = isText >>> getText >>> isA (null . strip')
   in processBottomUp (ifA isToSkip none returnA)
-     >>> putXmlTree "-"
 
 -- go "data/test/flat.xml" deleteIf_multiplConditions
 deleteIf_multiplConditions :: IOSArrow XmlTree XmlTree
