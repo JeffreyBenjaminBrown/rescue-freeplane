@@ -37,13 +37,13 @@ convert iName oName = do
   _ <-
     runX $
     readDocument [withValidate no] (iName ++ ".mm") >>>
-    processBottomUp delete_skippable >>>
-    processTopDown promoteRichContent >>>
-      -- PITFALL: promote rich content tags first,
-      -- because `promoteOtherChildren` removes them.
-    processTopDown promoteOtherChildren >>>
-    processBottomUp textToNode >>>
-    getChildren >>> -- to skip the "/" node
+    fromLA ( processBottomUp delete_skippable >>>
+             processTopDown promoteRichContent >>>
+               -- PITFALL: promote rich content tags first,
+               -- because `promoteOtherChildren` removes them.
+             processTopDown promoteOtherChildren >>>
+             processBottomUp textToNode >>>
+             getChildren ) >>> -- to skip the "/" node
     printOrg h 1
   hClose h
 
@@ -64,7 +64,7 @@ printOrg h i0 = let
 -- | TODO ? hard: If a node has exactly one child and no grandchildren,
 -- the child should be shown without leading org-mode bullets.
 
-textToNode :: IOSArrow XmlTree XmlTree
+textToNode :: LA XmlTree XmlTree
 textToNode = let
   f :: XmlTree -> XmlTree
   f (NTree (XText s) children) =
@@ -75,7 +75,7 @@ textToNode = let
   f x = x
   in arr f
 
-promoteOtherChildren :: IOSArrow XmlTree XmlTree
+promoteOtherChildren :: LA XmlTree XmlTree
 promoteOtherChildren = let
   tagsToVanish = ["map","body","html","richcontent","p"]
   in ifA ( foldr1 (<+>) $
@@ -85,9 +85,9 @@ promoteOtherChildren = let
 -- | This relies on a certain .mm format property:
 -- a <node> with a <richcontent> child has no other children,
 -- and no text.
-promoteRichContent :: IOSArrow XmlTree XmlTree
+promoteRichContent :: LA XmlTree XmlTree
 promoteRichContent = let
-  isRichContentParent :: IOSArrow XmlTree Bool
+  isRichContentParent :: LA XmlTree Bool
   isRichContentParent =
     ( hasName "node" &&&
       (getChildren >>> hasName "richcontent") )
@@ -97,9 +97,9 @@ promoteRichContent = let
   in ifA isRichContentParent getChildren returnA
 
 -- | Deletes whole subtrees.
-delete_skippable :: IOSArrow XmlTree XmlTree
+delete_skippable :: LA XmlTree XmlTree
 delete_skippable = let
-  isBlankText, isTagToSkip :: IOSArrow XmlTree XmlTree
+  -- isBlankText, isTagToSkip :: IOSArrow XmlTree XmlTree
   isBlankText = isText >>>
     ifA (getText >>> isA (null . strip'))
     returnA none

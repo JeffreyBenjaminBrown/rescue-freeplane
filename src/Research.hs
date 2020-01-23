@@ -1,3 +1,6 @@
+-- | PITFALL: Many of these could be LA instead of IOSArrow.
+-- Use `fromLA` (see Convert.hs) to lift an LA to an IOSArrow.
+
 {-# LANGUAGE Arrows #-}
 
 module Research where
