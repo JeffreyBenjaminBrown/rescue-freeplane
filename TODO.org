@@ -2,6 +2,8 @@
 In particular, the set of tags used might be different.
 This code is based on freeplane 1.6.0,
 which might be the newest.
+* PITFALL: by default, Hxt's read mangles the data a little
+Character references, entity references, and CDATA nodes are converted and merged into text nodes. Comments and the DTD are discarded. These features can be turned off by certain options of readDocument or in some cases by calling some other read/parse functions instead.
 * references (in order)
 Next skip to ArrowTree.
 ** DONE tutorial
@@ -13,21 +15,6 @@ resume at listA
 ** Control.Arrow.ArrowIf
 ** Control.Arrow.ArrowTree
 ** Text.XML.HXT.Arrow.XmlArrow
-* TODO ? remove unnecessary stars
-** use arrow notation
-https://stackoverflow.com/questions/59867382/haskell-arrows-on-trees-xml-and-hxt-transform-text-leaves-into-subtrees/59869915#59869915
-https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/arrow-notation.html
-** some code I wrote before I knew about that
-  Control.Arrow.ArrowList.>. :: a b c -> ([c] -> d) -> a b d
-
-  isBlankNode :: IOSArrow XmlTree XmlTree
-  isBlankNode =
-    isElem >>> hasName "node" >>>
-    ( ifA ( getAttrValue "TEXT"
-            >>> arrL (\case "" -> []; _ -> [()]) )
-      returnA none )
-* PITFALL: read (in Hxt) mangles the data a little by default
-Character references, entity references, and CDATA nodes are converted and merged into text nodes. Comments and the DTD are discarded. These features can be turned off by certain options of readDocument or in some cases by calling some other read/parse functions instead.
 * about the data format
 ** navigate the tree
 with getChildren and filters

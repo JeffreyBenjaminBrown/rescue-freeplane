@@ -8,6 +8,7 @@
 -- (find all the tags via Research.allTags)
 
 {-# LANGUAGE LambdaCase,
+ScopedTypeVariables,
 Arrows #-}
 
 module Convert where
@@ -43,26 +44,57 @@ convert iName oName = do
                -- because `promoteOtherChildren` removes them.
              processTopDown promoteOtherChildren >>>
              processBottomUp textToNode >>>
+             processTopDown noBullets >>>
              getChildren ) >>> -- to skip the "/" node
-    printOrg h 1
+    printOrg h 1 -- or putXmlTree "-"
   hClose h
 
 printOrg :: Handle -> Int -> IOSArrow XmlTree XmlTree
 printOrg h i0 = let
+  printBulleted :: Int -> String -> IO ()
+  printBulleted i s =
+    hPutStrLn h $ replicate i '*' ++ " " ++ strip' s
+  printNoBullets :: String -> IO ()
+  printNoBullets s =
+    hPutStrLn h $                           strip' s
   printElem :: Int -> IOSArrow XmlTree XmlTree
-  printElem i =
-    ifA (isElem >>> hasName "node")
-    ( perform $
-      getAttrValue "TEXT" >>>
-      arrIO (\s -> hPutStrLn h $ replicate i '*' ++ " " ++ strip' s ) )
-    returnA
+  printElem i = ifA isElem
+                ( ifA (hasName "node")
+                  ( perform $ getAttrValue "TEXT" >>>
+                    arrIO (printBulleted i) )
+                  ( ifA (hasName "noBullets")
+                    ( perform $ getAttrValue "TEXT" >>>
+                      arrIO printNoBullets )
+                    returnA ) )
+                returnA
   in if i0 < 1
      then error "printOrg: should have a positive number of bullets"
      else printElem i0 >>> getChildren >>>
           printOrg h (i0 + 1)
 
--- | TODO ? hard: If a node has exactly one child and no grandchildren,
+-- | If a node has exactly one child and no grandchildren,
 -- the child should be shown without leading org-mode bullets.
+-- This changes its tag to "noBullets",
+-- so that the print function knows how to treat it.
+noBullets :: LA XmlTree XmlTree
+noBullets = let
+  zeroGrandchildren :: LA XmlTree Bool
+  zeroGrandchildren = (getChildren >>> getChildren) >>. zero
+    where zero = \case [ ] -> [True]; _ -> []
+  oneChild :: LA XmlTree XmlTree
+  oneChild = proc x ->
+    -- the \case statement here is like `zero` above,
+    -- but it returns the input XmlTree rather than a Bool.
+    -- If it returned a Bool, I could not plug it into
+    -- `zeroGrandchildren` in the condition below.
+    getChildren >>. (\case [_] -> [x]; _ -> []) -<< x
+  cn :: LA XmlTree XmlTree
+  cn = changeQName $ const $ mkName "noBullets"
+  cnMap :: [XmlTree] -> [XmlTree]
+  cnMap = map (head . runLA cn)
+  in ifA ( isElem >>> oneChild >>> zeroGrandchildren )
+      (changeChildren cnMap)
+      returnA
 
 textToNode :: LA XmlTree XmlTree
 textToNode = let
@@ -94,6 +126,7 @@ promoteRichContent = let
     >>> arrL ( \(h,r) -> if not (null h) && not (null r)
                          then [True]
                          else [] )
+
   in ifA isRichContentParent getChildren returnA
 
 -- | Deletes whole subtrees.
