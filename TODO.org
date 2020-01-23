@@ -2,7 +2,8 @@
 In particular, the set of tags used might be different.
 This code is based on freeplane 1.6.0,
 which might be the newest.
-* TODO references (in order)
+* TODO change org colors
+* references (in order)
 Next skip to ArrowTree.
 ** DONE tutorial
 https://www.vex.net/~trebla/haskell/hxt-arrow/lesson-1.xhtml
@@ -82,7 +83,12 @@ found via Research.allTags
 **** hook (skip)
 **** properties (skip)
 
+https://emacs.stackexchange.com/questions/26781/customize-colors-of-level-in-org-mode
 * TODO ? remove unnecessary stars
+** use arrow notation
+https://stackoverflow.com/questions/59867382/haskell-arrows-on-trees-xml-and-hxt-transform-text-leaves-into-subtrees/59869915#59869915
+https://downloads.haskell.org/~ghc/7.8.4/docs/html/users_guide/arrow-notation.html
+** some code I wrote before I knew about that
   Control.Arrow.ArrowList.>. :: a b c -> ([c] -> d) -> a b d
 
   isBlankNode :: IOSArrow XmlTree XmlTree

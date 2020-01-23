@@ -1,6 +1,7 @@
 -- | Most (all?) of the utilities here are demonstrated in Research.hs.
 
 {-# LANGUAGE LambdaCase #-}
+{-# LANGUAGE Arrows #-}
 
 module Convert where
 

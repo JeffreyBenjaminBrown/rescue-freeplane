@@ -1,4 +1,5 @@
 :set prompt "> "
+:set -XArrows
 
 --import Control.Lens hiding (none, deep)
 import Data.Text (strip, pack, unpack)

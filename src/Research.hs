@@ -1,3 +1,5 @@
+{-# LANGUAGE Arrows #-}
+
 module Research where
 
 import Data.Text (strip, pack, unpack)
@@ -85,11 +87,14 @@ isRichContentParent = let
                    else [] )
   in ifA f (getAttrValue "A") none
 
--- | TODO ? This would be easier, but do notation is unavailable.
--- do
---   t <- getText
---   eelem "node" >>> addAttr "TEXT" t
--- to execute, use test_textToNode, below
+-- https://stackoverflow.com/questions/59867382/haskell-arrows-on-trees-xml-and-hxt-transform-text-leaves-into-subtrees/59869915#59869915
+textToNode_arrowNotation :: IOSArrow XmlTree XmlTree
+textToNode_arrowNotation = proc x -> do
+  text <- getText -< x
+  node <- eelem "node" -<< text
+  tree <- addAttr "TEXT" text -<< node
+  returnA -< tree
+
 textToNode :: IOSArrow XmlTree XmlTree
 textToNode = arr f where
   f :: XmlTree -> XmlTree
