@@ -26,14 +26,14 @@ source-repository head
 
 library
   exposed-modules:
-                  -- Arrow.Intro
-                  Arrow.ArrowList
---      Hxt_Arrow_Tutorial.L0
-                , Hxt_Arrow_Tutorial.L1
-                , Convert
+                  Convert
                 , Research
---    , Hxt_Arrow_Tutorial.L2
---    , Hxt_Arrow_Tutorial.L3
+                , Research.Arrow.ArrowList
+                , Research.Arrow.Intro
+                , Research.Hxt_Arrow_Tutorial.L0
+                , Research.Hxt_Arrow_Tutorial.L1
+                , Research.Hxt_Arrow_Tutorial.L2
+                , Research.Hxt_Arrow_Tutorial.L3
   other-modules:
       Paths_rescue_freeplane
   hs-source-dirs:

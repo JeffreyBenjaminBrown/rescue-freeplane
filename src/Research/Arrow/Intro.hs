@@ -2,7 +2,7 @@
 
 {-# OPTIONS_GHC -fno-warn-type-defaults #-}
 
-module Arrow.Intro where
+module Research.Arrow.Intro where
 
 import Control.Category hiding ((.), id)
 import Control.Arrow
