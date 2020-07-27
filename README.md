@@ -1,6 +1,10 @@
 # How to use it
 
-d <- myRead "data/enph.mm"
+For safety, copy the data to be converted to this folder.
+It should be `.mm` files.
+For each file called `name.mm`,
+strip the file extension and run `convert name`.
+A file called `name.org` will be created next to it.
 
 # Why
 
