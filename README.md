@@ -1,10 +1,14 @@
 # How to use it
 
-For safety, copy the data to be converted to this folder.
-It should be `.mm` files.
-For each file called `name.mm`,
-strip the file extension and run `convert name`.
-A file called `name.org` will be created next to it.
+If these instructions don't work for you, please let me know,
+e.g. by posting an issue to Github's issue tracker for this project.
+
+Install [stack for Haskell](https://docs.haskellstack.org/en/stable/README/).
+From the root of this project, run `stack ghci`.
+Then run `convert "path"`, where `path`
+is an absolute or relative path to the `.mm` file you want to convert,
+*not* including the `.mm` extension.
+A similarly-named `.org` file will appear next to it.
 
 # Why
 

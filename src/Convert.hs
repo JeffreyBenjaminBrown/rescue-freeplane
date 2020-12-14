@@ -26,14 +26,14 @@ import Text.XML.HXT.Core
 import Data.Tree.NTree.TypeDefs
 
 
-convert' :: FilePath -> IO ()
-convert' n = convert n n
+convert :: FilePath -> IO ()
+convert n = convert' n n
 
 -- | Strip the file extensions from the paths used as input.
 -- They are fixed to .mm and .org automatically,
 -- to avoid accidentally overwriting the input with the output.
-convert :: FilePath -> FilePath -> IO ()
-convert iName oName = do
+convert' :: FilePath -> FilePath -> IO ()
+convert' iName oName = do
   h <- openFile (oName ++ ".org") ReadWriteMode
   _ <-
     runX $
